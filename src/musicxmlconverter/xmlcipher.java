@@ -127,6 +127,7 @@ public class xmlcipher extends DefaultHandler
 		{
 			e.printStackTrace();
 		}
+
 		parseDocument(input);
 		printData();
 	}
@@ -138,22 +139,25 @@ public class xmlcipher extends DefaultHandler
 		spf.setValidating(false);
 		try
 		{
-			SAXParser parser = spf.newSAXParser();
-			
+			spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+			SAXParser parser = spf.newSAXParser();			
 			File xmlFile = new File(input);
-			//	    spf
 			parser.parse(xmlFile, this);
 		} catch (SAXException se)
 		{
+			System.out.println("SAXException");
 			se.printStackTrace();
 		} catch (ParserConfigurationException pce)
 		{
+			System.out.println("ParserConfigurationException");
 			pce.printStackTrace();
 		} catch (IOException ie)
 		{
+			System.out.println("IOException");
 			ie.printStackTrace();
 		} catch (Exception e)
 		{
+			System.out.println("Exception");
 			e.printStackTrace();
 		}
 
@@ -724,7 +728,6 @@ public class xmlcipher extends DefaultHandler
 
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
 	{
-
 		tempVal = "";
 		if (qName.equalsIgnoreCase("measure"))
 		{
